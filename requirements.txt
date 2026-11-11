@@ -1,0 +1,5 @@
+mcp[cli]>=2,<3
+yfinance>=1.8,<2
+pandas>=2.2,<3
+numpy>=2,<3
+requests>=2.32,<3

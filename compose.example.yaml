@@ -1,0 +1,23 @@
+name: cloud9-fincept-mcp
+services:
+  finance-mcp:
+    image: ghcr.io/godsquantum/cloud9-fincept-mcp:latest
+    pull_policy: always
+    restart: unless-stopped
+    init: true
+    env_file: .env
+    ports:
+      - "127.0.0.1:18765:18765"
+    command: ["--host","0.0.0.0","--port","18765"]
+    read_only: true
+    tmpfs:
+      - /tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    healthcheck:
+      test: ["CMD","python","-c","import socket;socket.create_connection(('127.0.0.1',18765),timeout=2).close()"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
